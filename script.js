@@ -9,6 +9,9 @@ function startInstruction() {
 }
 
 function janken(playerChoice) {
+    if (gameEnded) return;
+
+    disableJankenButtons();
     const choices = ['グー', 'チョキ', 'パー'];
     const aiChoice = choices[Math.floor(Math.random() * choices.length)];
     let result = '';
@@ -16,7 +19,7 @@ function janken(playerChoice) {
     if (playerChoice === aiChoice) {
         result = jankenComments.draw;
         showText(result, 'shinosawa-message-janken', () => {
-            setTimeout(() => enableJankenButtons(), 500);
+            enableJankenButtons(); // あいこの場合にボタンを再度有効にする
         });
         return;
     } else if (
@@ -41,7 +44,7 @@ function startGame() {
     document.getElementById('janken-game').style.display = 'none';
     document.getElementById('counting-game').style.display = 'block';
     gameEnded = false;
-    updateTurnMessage();
+    updateTurnMessage(playerFirst);
     document.getElementById('character-image').src = characterImages.normal;
     disableButtons(!playerFirst);
 
@@ -52,6 +55,7 @@ function startGame() {
 
 function playerTurn(number) {
     if (gameEnded || messageInProgress) return;
+
     disableButtons(true);
     document.getElementById("total").classList.add('green');
     for (let i = 1; i <= number; i++) {
@@ -60,12 +64,13 @@ function playerTurn(number) {
             updateTotal();
             if (total >= 20) {
                 gameEnded = true;
-                showText("Lose", 'message');
+                showLargeText("Lose", 'message');
                 showText(gameComments.lose, 'shinosawa-message');
                 document.getElementById('retry').style.display = 'block';
+                document.getElementById('tweet').style.display = 'block';
                 return;
             }
-        }, i * 750);
+        }, i * 250);
     }
     setTimeout(() => {
         document.getElementById("total").classList.remove('green');
@@ -73,13 +78,14 @@ function playerTurn(number) {
             updateTurnMessage(false);
             setTimeout(() => {
                 aiTurn();
-            }, 1000);
+            }, 500);
         }
-    }, (number + 1) * 750);
+    }, (number + 1) * 250);
 }
 
 function aiTurn() {
     if (gameEnded) return;
+
     disableButtons(true);
     document.getElementById("total").classList.add('red');
     let aiChoice = getOptimalMove(total);
@@ -91,12 +97,13 @@ function aiTurn() {
                 updateTotal();
                 if (total >= 20) {
                     gameEnded = true;
-                    showText("Win", 'message');
+                    showLargeText("Win", 'message');
                     showText(gameComments.win, 'shinosawa-message');
                     document.getElementById('retry').style.display = 'block';
+                    document.getElementById('tweet').style.display = 'block';
                     return;
                 }
-            }, i * 750);
+            }, i * 250);
         }
         setTimeout(() => {
             document.getElementById("total").classList.remove('red');
@@ -110,18 +117,22 @@ function aiTurn() {
                     disableInvalidButtons();
                 });
             }
-        }, (aiChoice + 1) * 750);
+        }, (aiChoice + 1) * 250);
     });
 }
 
-function updateTurnMessage(isPlayerTurn = true) {
+function updateTurnMessage(isPlayerTurn) {
     document.getElementById('message').textContent = isPlayerTurn
         ? 'プロデューサーの番です。1から3の数字を選んでください。'
         : '広の番です。';
     disableButtons(!isPlayerTurn);
+    disableInvalidButtons();
 }
 
 function getOptimalMove(currentTotal) {
+    if (currentTotal >= 19) {
+        return 1; // 19以上では+1しか選ばない
+    }
     let remainder = (currentTotal + 1) % 4;
     if (remainder === 0) {
         return Math.floor(Math.random() * 3) + 1; // ランダムに1から3を選ぶ
@@ -165,11 +176,9 @@ function disableInvalidButtons() {
     btn3.classList.remove('disabled');
 
     if (total >= 18) {
-        if (total === 18) {
-            btn3.classList.add('disabled');
-        } else if (total === 19) {
+        btn3.classList.add('disabled');
+        if (total === 19) {
             btn2.classList.add('disabled');
-            btn3.classList.add('disabled');
         }
     }
 }
@@ -177,6 +186,9 @@ function disableInvalidButtons() {
 function resetGame() {
     total = 0;  // 合計数をリセット
     gameEnded = false;
+    playerFirst = false;
+    messageInProgress = false;
+
     document.getElementById('janken-game').style.display = 'block';
     document.getElementById('counting-game').style.display = 'none';
     document.getElementById('janken-message').textContent = 'じゃんけんで勝った方が先攻ね。';
@@ -187,8 +199,11 @@ function resetGame() {
     `;
     document.getElementById('shinosawa-message-janken').textContent = '';
     document.getElementById('total').textContent = '現在の合計: 0';
-    document.getElementById('comment').textContent = '';
+    document.getElementById('message').classList.remove('large-text');
+    document.getElementById('message').textContent = '';
+    document.getElementById('shinosawa-message').textContent = '';
     document.getElementById('retry').style.display = 'none';
+    document.getElementById('tweet').style.display = 'none';
     document.getElementById('character-image').src = characterImages.normal;
     document.getElementById('character-image-janken').src = characterImages.normal;
     enableJankenButtons();
@@ -208,10 +223,26 @@ function showText(text, elementId, callback) {
     }, 50); // 1文字ずつ表示する間隔を調整
 }
 
+function showLargeText(text, elementId) {
+    const element = document.getElementById(elementId);
+    element.textContent = text;
+    element.classList.add('large-text');
+}
+
 function disableButtons(disable) {
-    document.getElementById('btn1').disabled = disable;
-    document.getElementById('btn2').disabled = disable;
-    document.getElementById('btn3').disabled = disable;
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(button => {
+        if (disable) {
+            button.disabled = true;
+            button.classList.add('disabled');
+        } else {
+            setTimeout(() => {
+                button.disabled = false;
+                button.classList.remove('disabled');
+                disableInvalidButtons();
+            }, 500); // 0.5秒後にボタンを再度有効にする
+        }
+    });
 }
 
 function disableJankenButtons() {
@@ -225,3 +256,14 @@ function enableJankenButtons() {
     document.getElementById('scissors').disabled = false;
     document.getElementById('paper').disabled = false;
 }
+
+function tweetResult() {
+    const tweetText = `しのさわに勝った！合計 ${total} で勝利しました！ #20を数えたら負けゲーム`;
+    const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
+    window.open(tweetUrl, '_blank');
+}
+
+// リトライボタンを押すと画面をリロード
+document.getElementById('retry').addEventListener('click', function() {
+    location.reload();
+});

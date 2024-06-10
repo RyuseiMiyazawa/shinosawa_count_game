@@ -15,7 +15,11 @@ body {
     padding: 20px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 300px;
+    width: 350px; /* 固定幅 */
+    height: 700px; /* 長さを長く */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 h1 {
@@ -37,6 +41,7 @@ h1 {
     cursor: pointer;
     background-color: #337ab7;
     color: #ffffff;
+    flex-grow: 1;
 }
 
 .btn:hover {
@@ -98,4 +103,21 @@ h1 {
     background-color: #f0f0f0;
     width: 100%;
     box-sizing: border-box;
+    height: 80px; /* 固定高さ */
+    overflow: hidden;
+    white-space: nowrap; /* テキストの改行を防ぐ */
+}
+
+.disabled {
+    background-color: #cccccc; /* 灰色 */
+    color: #666666; /* テキストの色も変更 */
+    pointer-events: none; /* クリックを無効化 */
+}
+
+.large-text {
+    font-size: 2.5em; /* テキストを大きくする */
+    font-weight: bold;
+    color: red;
+    text-align: center;
+    margin-top: 20px;
 }
