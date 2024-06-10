@@ -17,10 +17,13 @@
                 <button id="scissors" class="btn" onclick="janken('チョキ')">✌️</button>
                 <button id="paper" class="btn" onclick="janken('パー')">✋</button>
             </div>
+            <img id="character-image-janken" src="images/shinosawa_tujo.jpeg" alt="篠澤広" class="character-image">
+            <div id="shinosawa-message-box-janken">
+                <p id="shinosawa-message-janken"></p>
+            </div>
         </div>
         <div id="counting-game" style="display: none;">
             <p id="message"></p>
-            <p id="shinosawa-message"></p>
             <p id="total">現在の合計: 0</p>
             <div class="buttons">
                 <button id="btn1" class="btn" onclick="playerTurn(1)" disabled>1 (+1)</button>
@@ -28,6 +31,9 @@
                 <button id="btn3" class="btn" onclick="playerTurn(3)" disabled>3 (+3)</button>
             </div>
             <img id="character-image" src="images/shinosawa_tujo.jpeg" alt="篠澤広" class="character-image">
+            <div id="shinosawa-message-box">
+                <p id="shinosawa-message"></p>
+            </div>
             <div id="text-box">
                 <p id="comment"></p>
             </div>

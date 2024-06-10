@@ -86,3 +86,14 @@ h1 {
 .red {
     color: red;
 }
+
+#shinosawa-message-box,
+#shinosawa-message-box-janken {
+    border: 2px solid #000;
+    border-radius: 5px;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #fff;
+    font-family: 'DotGothic16', sans-serif;
+    background-color: #f0f0f0;
+}

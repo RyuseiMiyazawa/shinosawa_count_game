@@ -10,7 +10,7 @@ function janken(playerChoice) {
 
     if (playerChoice === aiChoice) {
         result = jankenComments.draw;
-        showText(result, 'shinosawa-message', () => {
+        showText(result, 'shinosawa-message-janken', () => {
             setTimeout(() => enableJankenButtons(), 500);
         });
         return;
@@ -26,13 +26,16 @@ function janken(playerChoice) {
         playerFirst = false;
     }
 
-    showText(result, 'shinosawa-message', () => {
+    showText(result, 'shinosawa-message-janken', () => {
+        showText(`私の手: ${aiChoice}`, 'shinosawa-message-janken');
         disableJankenButtons();
         setTimeout(startGame, 1500);
     });
 }
 
 function startGame() {
+    document.getElementById('janken-game').style.display = 'none';
+    document.getElementById('counting-game').style.display = 'block';
     gameEnded = false;
     document.getElementById('message').textContent = playerFirst
         ? 'プロデューサーの番です。1から3の数字を選んでください。'
@@ -53,10 +56,14 @@ function playerTurn(number) {
         setTimeout(() => {
             total++;
             if (total >= 20) {
-                total = 20;
                 gameEnded = true;
-                showText("Lose", 'message');
-                showText("広の勝ちです。", 'shinosawa-message');
+                if (playerFirst) {
+                    showText("Win", 'message');
+                    showText(gameComments.win, 'shinosawa-message');
+                } else {
+                    showText("Lose", 'message');
+                    showText(gameComments.lose, 'shinosawa-message');
+                }
                 document.getElementById('retry').style.display = 'block';
                 return;
             }
@@ -84,10 +91,9 @@ function aiTurn() {
             setTimeout(() => {
                 total++;
                 if (total >= 20) {
-                    total = 20;
                     gameEnded = true;
                     showText("Win", 'message');
-                    showText("広の勝ちです。", 'shinosawa-message');
+                    showText(gameComments.lose, 'shinosawa-message');
                     document.getElementById('retry').style.display = 'block';
                     return;
                 }
@@ -99,7 +105,7 @@ function aiTurn() {
             if (!gameEnded) {
                 showText(getComment(total), 'shinosawa-message', () => {
                     document.getElementById('message').textContent = "プロデューサーの番です。1から3の数字を選んでください。";
-                    document.getElementById('character-image').src = characterImages.normal;
+                    updateCharacterImage(total);
                     if (!gameEnded) {
                         disableButtons(false);
                     }
@@ -131,6 +137,16 @@ function updateTotal() {
     document.getElementById("total").textContent = `現在の合計: ${total}`;
 }
 
+function updateCharacterImage(total) {
+    let imgSrc = characterImages.normal;
+    if (total > 15) {
+        imgSrc = characterImages.smug;
+    } else if (total > 10) {
+        imgSrc = characterImages.troubled;
+    }
+    document.getElementById('character-image').src = imgSrc;
+}
+
 function disableInvalidButtons() {
     const btn1 = document.getElementById('btn1');
     const btn2 = document.getElementById('btn2');
@@ -153,17 +169,20 @@ function disableInvalidButtons() {
 function resetGame() {
     total = 0;
     gameEnded = false;
-    document.getElementById('message').textContent = 'じゃんけんで勝った方が先攻ね。';
+    document.getElementById('janken-game').style.display = 'block';
+    document.getElementById('counting-game').style.display = 'none';
+    document.getElementById('janken-message').textContent = 'じゃんけんで勝った方が先攻ね。';
     document.querySelector('.buttons').innerHTML = `
         <button id="rock" class="btn" onclick="janken('グー')">👊</button>
         <button id="scissors" class="btn" onclick="janken('チョキ')">✌️</button>
         <button id="paper" class="btn" onclick="janken('パー')">✋</button>
     `;
-    document.getElementById('shinosawa-message').textContent = '';
+    document.getElementById('shinosawa-message-janken').textContent = '';
     document.getElementById('total').textContent = '現在の合計: 0';
     document.getElementById('comment').textContent = '';
     document.getElementById('retry').style.display = 'none';
     document.getElementById('character-image').src = characterImages.normal;
+    document.getElementById('character-image-janken').src = characterImages.normal;
     enableJankenButtons();
 }
 
