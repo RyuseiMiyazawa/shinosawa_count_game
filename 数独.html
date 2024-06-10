@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20を数えたら負けゲーム</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>20を数えたら負けゲーム</h1>
+        <div id="janken-game">
+            <p id="janken-message">じゃんけんで勝った方が先攻ね。</p>
+            <div class="buttons">
+                <button id="rock" class="btn" onclick="janken('グー')">👊</button>
+                <button id="scissors" class="btn" onclick="janken('チョキ')">✌️</button>
+                <button id="paper" class="btn" onclick="janken('パー')">✋</button>
+            </div>
+        </div>
+        <div id="counting-game" style="display: none;">
+            <p id="message"></p>
+            <p id="shinosawa-message"></p>
+            <p id="total">現在の合計: 0</p>
+            <div class="buttons">
+                <button id="btn1" class="btn" onclick="playerTurn(1)" disabled>1 (+1)</button>
+                <button id="btn2" class="btn" onclick="playerTurn(2)" disabled>2 (+2)</button>
+                <button id="btn3" class="btn" onclick="playerTurn(3)" disabled>3 (+3)</button>
+            </div>
+            <img id="character-image" src="images/shinosawa_tujo.jpeg" alt="篠澤広" class="character-image">
+            <div id="text-box">
+                <p id="comment"></p>
+            </div>
+            <button id="retry" class="btn" onclick="resetGame()">リトライ</button>
+        </div>
+    </div>
+    <script src="comments.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

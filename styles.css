@@ -1,0 +1,88 @@
+body {
+    font-family: 'DotGothic16', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    margin: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 24px;
+    color: #d9534f;
+    margin-bottom: 20px;
+}
+
+.buttons {
+    margin: 20px 0;
+}
+
+.btn {
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #337ab7;
+    color: #ffffff;
+}
+
+.btn:hover {
+    background-color: #286090;
+}
+
+.total {
+    font-size: 18px;
+    margin: 20px 0;
+}
+
+.character-image {
+    width: 100px;
+    height: auto;
+    margin: 20px 0;
+}
+
+#text-box {
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+#comment {
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+#retry {
+    display: none;
+    font-size: 18px;
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #5cb85c;
+    color: #ffffff;
+}
+
+#retry:hover {
+    background-color: #4cae4c;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
