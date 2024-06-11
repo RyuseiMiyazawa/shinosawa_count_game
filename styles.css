@@ -6,7 +6,6 @@ body {
     height: 100vh;
     background-color: #f0f0f0;
     margin: 0;
-    overflow: hidden; /* スクロールバーを防ぐ */
 }
 
 .container {
@@ -24,7 +23,6 @@ body {
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    overflow: hidden; /* スクロールバーを防ぐ */
 }
 
 h1 {
