@@ -6,6 +6,7 @@ body {
     height: 100vh;
     background-color: #f0f0f0;
     margin: 0;
+    overflow: hidden; /* スクロールバーを防ぐ */
 }
 
 .container {
@@ -16,17 +17,19 @@ body {
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100vw; /* 画面幅の100% */
-    height: 100vh; /* 画面高の100% */
-    max-width: 400px;
-    max-height: 800px;
+    height: 90vh; /* 画面高の90% */
+    max-width: 350px;
+    max-height: 700px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
+    overflow: hidden; /* スクロールバーを防ぐ */
+    margin-top: 5vh; /* 上にスペースを作る */
 }
 
 h1 {
-    font-size: 22px;
+    font-size: 20px;
     color: #d9534f;
     margin-bottom: 10px;
 }
@@ -34,20 +37,19 @@ h1 {
 .buttons {
     margin: 10px 0;
     display: flex;
-    justify-content: space-around; /* ボタンを均等配置 */
+    justify-content: space-around;
 }
 
 .btn {
-    font-size: 16px;
-    padding: 10px 14px;
+    font-size: 14px;
+    padding: 8px 12px;
     margin: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: #337ab7;
     color: #ffffff;
-    flex: 1; /* ボタンを均等に広げる */
-    max-width: 90px; /* ボタンの最大幅を設定 */
+    flex-grow: 1;
 }
 
 .btn:hover {
@@ -55,37 +57,39 @@ h1 {
 }
 
 .total {
-    font-size: 18px;
+    font-size: 16px;
     margin: 10px 0;
 }
 
 .character-image {
-    width: 80px; /* 幅を小さくする */
+    width: 60px; /* 幅を小さくする */
     height: auto;
-    margin: 10px auto; /* 上下中央揃え */
+    margin: 10px 0;
     border: 2px solid #000000;
     border-radius: 5px;
 }
 
 #text-box {
     margin: 10px 0;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 #comment {
-    font-size: 18px;
+    font-size: 16px;
     margin: 5px 0;
 }
 
 #retry {
-    font-size: 18px;
-    padding: 10px 14px;
+    font-size: 16px;
+    padding: 8px 12px;
     margin: 10px 0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: #5cb85c;
     color: #ffffff;
+    width: 100px; /* 幅を固定 */
+    white-space: nowrap; /* テキストの改行を防ぐ */
 }
 
 #retry:hover {
@@ -111,7 +115,7 @@ h1 {
     background-color: #f0f0f0;
     width: 100%;
     box-sizing: border-box;
-    height: 60px; /* 高さをさらに小さくする */
+    height: 50px; /* 高さをさらに小さくする */
     overflow: hidden;
     white-space: nowrap; /* テキストの改行を防ぐ */
 }
@@ -123,7 +127,7 @@ h1 {
 }
 
 .large-text {
-    font-size: 2em; /* テキストを少し小さくする */
+    font-size: 1.8em; /* テキストを少し小さくする */
     font-weight: bold;
     color: red;
     text-align: center;
