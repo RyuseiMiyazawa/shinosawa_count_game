@@ -6,14 +6,14 @@ body {
     height: 100vh;
     background-color: #f0f0f0;
     margin: 0;
-    overflow: hidden; /* スクロールバーを防ぐ */
+    overflow: auto; /* スクロールを可能にする */
 }
 
 .container {
     background-color: #ffffff;
     border: 2px solid #000000;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px; /* 余白を減らす */
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100vw; /* 画面幅の100% */
@@ -24,13 +24,14 @@ body {
     flex-direction: column;
     justify-content: space-around;
     box-sizing: border-box;
-    overflow: hidden; /* スクロールバーを防ぐ */
+    overflow: auto; /* スクロールを可能にする */
 }
 
 h1 {
     font-size: 24px;
     color: #d9534f;
     margin: 0; /* 余白を削除 */
+    padding: 0; /* 余白を削除 */
 }
 
 .buttons {
@@ -79,7 +80,7 @@ h1 {
 #retry {
     font-size: 16px;
     padding: 8px 12px;
-    margin: 10px 0;
+    margin: 5px 0; /* 上下の余白を減らす */
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -103,14 +104,14 @@ h1 {
 #shinosawa-message-box-janken {
     border: 2px solid #000;
     border-radius: 5px;
-    padding: 8px;
+    padding: 5px; /* 余白を減らす */
     margin: 5px 0; /* 上下の余白を減らす */
     background-color: #fff;
     font-family: 'DotGothic16', sans-serif;
     background-color: #f0f0f0;
     width: 100%;
     box-sizing: border-box;
-    height: 60px; /* 高さを少し増やす */
+    height: 50px; /* 高さを少し減らす */
     overflow: hidden;
     white-space: nowrap; /* テキストの改行を防ぐ */
 }
@@ -126,5 +127,5 @@ h1 {
     font-weight: bold;
     color: red;
     text-align: center;
-    margin: 10px 0; /* 上下の余白を減らす */
+    margin: 5px 0; /* 上下の余白を減らす */
 }
