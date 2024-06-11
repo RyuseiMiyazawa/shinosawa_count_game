@@ -57,6 +57,8 @@ h1 {
     width: 100px;
     height: auto;
     margin: 20px 0;
+    border: 2px solid #000000; /* 黒い線で囲む */
+    border-radius: 5px;
 }
 
 #text-box {
