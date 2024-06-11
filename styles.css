@@ -77,19 +77,33 @@ h1 {
     margin: 5px 0; /* 上下の余白を減らす */
 }
 
-#retry {
+#retry,
+#tweet {
     font-size: 16px;
     padding: 8px 12px;
-    margin: 5px 0; /* 上下の余白を減らす */
+    margin: 5px 2px; /* 上下の余白を減らす */
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    flex-grow: 1;
+}
+
+#retry {
     background-color: #5cb85c;
     color: #ffffff;
 }
 
 #retry:hover {
     background-color: #4cae4c;
+}
+
+#tweet {
+    background-color: #1da1f2;
+    color: #ffffff;
+}
+
+#tweet:hover {
+    background-color: #1a91da;
 }
 
 .green {
@@ -128,4 +142,9 @@ h1 {
     color: red;
     text-align: center;
     margin: 5px 0; /* 上下の余白を減らす */
+}
+
+.retry-tweet-container {
+    display: flex;
+    justify-content: space-around;
 }
