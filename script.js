@@ -144,7 +144,7 @@ function aiTurn() {
 // ターンメッセージの更新
 function updateTurnMessage(isPlayerTurn) {
     document.getElementById('message').textContent = isPlayerTurn
-        ? 'プロデューサーの番です。1から3の数字を選んでください。'
+        ? 'プロデューサーの番です。'
         : '広の番です。';
     disableButtons(!isPlayerTurn);
     disableInvalidButtons();
@@ -262,7 +262,7 @@ function showLargeText(text, elementId) {
 
 // 結果をツイート
 function tweetResult() {
-    const tweetText = `学マスの篠澤と算数バトル https://ryuseimiyazawa.github.io/shinosawa_count_game/`;
+    const tweetText = `学マスの篠澤と算数バトル    https://ryuseimiyazawa.github.io/shinosawa_count_game/`;
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
     window.open(tweetUrl, '_blank');
 }

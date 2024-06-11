@@ -17,31 +17,28 @@ body {
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     width: 100vw; /* 画面幅の100% */
-    height: 90vh; /* 画面高の90% */
+    height: 100vh; /* 画面高の100% */
     max-width: 350px;
     max-height: 700px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     box-sizing: border-box;
     overflow: hidden; /* スクロールバーを防ぐ */
-    margin-top: 5vh; /* 上にスペースを作る */
 }
 
 h1 {
-    font-size: 20px;
+    font-size: 24px;
     color: #d9534f;
-    margin-bottom: 10px;
+    margin: 0; /* 余白を削除 */
 }
 
 .buttons {
-    margin: 10px 0;
-    display: flex;
-    justify-content: space-around;
+    margin: 5px 0; /* 上下の余白を減らす */
 }
 
 .btn {
-    font-size: 14px;
+    font-size: 16px;
     padding: 8px 12px;
     margin: 5px;
     border: none;
@@ -58,25 +55,25 @@ h1 {
 
 .total {
     font-size: 16px;
-    margin: 10px 0;
+    margin: 5px 0; /* 上下の余白を減らす */
 }
 
 .character-image {
-    width: 60px; /* 幅を小さくする */
+    width: 80px; /* 幅を少し大きくする */
     height: auto;
-    margin: 10px 0;
+    margin: 5px 0; /* 上下の余白を減らす */
     border: 2px solid #000000;
     border-radius: 5px;
 }
 
 #text-box {
-    margin: 10px 0;
+    margin: 5px 0; /* 上下の余白を減らす */
     font-size: 16px;
 }
 
 #comment {
     font-size: 16px;
-    margin: 5px 0;
+    margin: 5px 0; /* 上下の余白を減らす */
 }
 
 #retry {
@@ -88,8 +85,6 @@ h1 {
     cursor: pointer;
     background-color: #5cb85c;
     color: #ffffff;
-    width: 100px; /* 幅を固定 */
-    white-space: nowrap; /* テキストの改行を防ぐ */
 }
 
 #retry:hover {
@@ -109,13 +104,13 @@ h1 {
     border: 2px solid #000;
     border-radius: 5px;
     padding: 8px;
-    margin-top: 10px;
+    margin: 5px 0; /* 上下の余白を減らす */
     background-color: #fff;
     font-family: 'DotGothic16', sans-serif;
     background-color: #f0f0f0;
     width: 100%;
     box-sizing: border-box;
-    height: 50px; /* 高さをさらに小さくする */
+    height: 60px; /* 高さを少し増やす */
     overflow: hidden;
     white-space: nowrap; /* テキストの改行を防ぐ */
 }
@@ -131,5 +126,5 @@ h1 {
     font-weight: bold;
     color: red;
     text-align: center;
-    margin-top: 10px;
+    margin: 10px 0; /* 上下の余白を減らす */
 }
