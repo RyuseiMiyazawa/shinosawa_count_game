@@ -262,7 +262,7 @@ function showLargeText(text, elementId) {
 
 // 結果をツイート
 function tweetResult() {
-    const tweetText = `篠澤と戦おう！https://ryuseimiyazawa.github.io/shinosawa_count_game/`;
+    const tweetText = `学マスの篠澤と算数バトル https://ryuseimiyazawa.github.io/shinosawa_count_game/`;
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
     window.open(tweetUrl, '_blank');
 }

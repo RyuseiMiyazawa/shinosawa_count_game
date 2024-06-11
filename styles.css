@@ -6,45 +6,50 @@ body {
     height: 100vh;
     background-color: #f0f0f0;
     margin: 0;
+    overflow: hidden; /* スクロールバーを防ぐ */
 }
 
 .container {
     background-color: #ffffff;
     border: 2px solid #000000;
     border-radius: 10px;
-    padding: 10px; /* パディングを少し小さくする */
+    padding: 10px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 90vw; /* 画面幅の90% */
-    max-width: 350px; /* 最大幅を設定 */
-    height: 90vh; /* 画面高の90% */
-    max-height: 700px; /* 最大高さを設定 */
+    width: 100vw; /* 画面幅の100% */
+    height: 100vh; /* 画面高の100% */
+    max-width: 400px;
+    max-height: 800px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
+    overflow: hidden; /* スクロールバーを防ぐ */
 }
 
 h1 {
-    font-size: 20px; /* フォントサイズを少し小さくする */
+    font-size: 22px;
     color: #d9534f;
-    margin-bottom: 10px; /* マージンを少し小さくする */
+    margin-bottom: 10px;
 }
 
 .buttons {
-    margin: 10px 0; /* マージンを少し小さくする */
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-around; /* ボタンを均等配置 */
 }
 
 .btn {
-    font-size: 16px; /* フォントサイズを少し小さくする */
-    padding: 8px 16px; /* パディングを少し小さくする */
+    font-size: 16px;
+    padding: 10px 14px;
     margin: 5px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     background-color: #337ab7;
     color: #ffffff;
-    flex-grow: 1;
+    flex: 1; /* ボタンを均等に広げる */
+    max-width: 90px; /* ボタンの最大幅を設定 */
 }
 
 .btn:hover {
@@ -52,32 +57,32 @@ h1 {
 }
 
 .total {
-    font-size: 16px; /* フォントサイズを少し小さくする */
-    margin: 10px 0; /* マージンを少し小さくする */
+    font-size: 18px;
+    margin: 10px 0;
 }
 
 .character-image {
-    width: 80px; /* 幅を少し小さくする */
+    width: 80px; /* 幅を小さくする */
     height: auto;
-    margin: 10px 0; /* マージンを少し小さくする */
-    border: 2px solid #000000; /* 黒い線で囲む */
+    margin: 10px auto; /* 上下中央揃え */
+    border: 2px solid #000000;
     border-radius: 5px;
 }
 
 #text-box {
-    margin: 10px 0; /* マージンを少し小さくする */
-    font-size: 16px; /* フォントサイズを少し小さくする */
+    margin: 10px 0;
+    font-size: 18px;
 }
 
 #comment {
-    font-size: 16px; /* フォントサイズを少し小さくする */
-    margin: 5px 0; /* マージンを少し小さくする */
+    font-size: 18px;
+    margin: 5px 0;
 }
 
 #retry {
-    font-size: 16px; /* フォントサイズを少し小さくする */
-    padding: 8px 16px; /* パディングを少し小さくする */
-    margin: 10px 0; /* マージンを少し小さくする */
+    font-size: 18px;
+    padding: 10px 14px;
+    margin: 10px 0;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -101,14 +106,14 @@ h1 {
 #shinosawa-message-box-janken {
     border: 2px solid #000;
     border-radius: 5px;
-    padding: 8px; /* パディングを少し小さくする */
-    margin-top: 10px; /* マージンを少し小さくする */
+    padding: 8px;
+    margin-top: 10px;
     background-color: #fff;
     font-family: 'DotGothic16', sans-serif;
     background-color: #f0f0f0;
     width: 100%;
     box-sizing: border-box;
-    height: 60px; /* 高さを少し小さくする */
+    height: 60px; /* 高さをさらに小さくする */
     overflow: hidden;
     white-space: nowrap; /* テキストの改行を防ぐ */
 }
@@ -124,28 +129,5 @@ h1 {
     font-weight: bold;
     color: red;
     text-align: center;
-    margin-top: 20px;
-}
-
-/* メディアクエリでさらに調整 */
-@media (max-width: 320px) {
-    .container {
-        width: 100vw; /* 画面幅の100% */
-        height: 100vh; /* 画面高の100% */
-        padding: 5px; /* パディングをさらに小さくする */
-    }
-    
-    .btn {
-        font-size: 14px; /* フォントサイズをさらに小さくする */
-        padding: 6px 12px; /* パディングをさらに小さくする */
-    }
-    
-    .character-image {
-        width: 60px; /* 幅をさらに小さくする */
-    }
-    
-    #shinosawa-message-box,
-    #shinosawa-message-box-janken {
-        height: 50px; /* 高さをさらに小さくする */
-    }
+    margin-top: 10px;
 }
