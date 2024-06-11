@@ -3,11 +3,21 @@ let playerFirst = false;
 let gameEnded = false;
 let messageInProgress = false;
 
-function startInstruction() {
-    document.getElementById('instruction-screen').style.display = 'none';
-    document.getElementById('janken-game').style.display = 'block';
+// BGMとSEの準備
+let bgm = new Audio('sound/bgm.mp3');
+bgm.loop = true;
+
+let clickSound = new Audio('sound/クリック.mp3');
+let decisionSound = new Audio('sound/決定ボタン.mp3');
+let winSound = new Audio('sound/勝利.mp3');
+let loseSound = new Audio('sound/敗北.mp3');
+
+// 不要なリセットコードを削除
+function resetGame() {
+    location.reload();  // 画面をリロード
 }
 
+// じゃんけん処理
 function janken(playerChoice) {
     if (gameEnded) return;
 
@@ -40,6 +50,7 @@ function janken(playerChoice) {
     });
 }
 
+// ゲーム開始
 function startGame() {
     document.getElementById('janken-game').style.display = 'none';
     document.getElementById('counting-game').style.display = 'block';
@@ -47,12 +58,14 @@ function startGame() {
     updateTurnMessage(playerFirst);
     document.getElementById('character-image').src = characterImages.normal;
     disableButtons(!playerFirst);
+    bgm.play(); // BGMを再生
 
     if (!playerFirst) {
         setTimeout(aiTurn, 1500);
     }
 }
 
+// プレイヤーのターン
 function playerTurn(number) {
     if (gameEnded || messageInProgress) return;
 
@@ -62,15 +75,18 @@ function playerTurn(number) {
         setTimeout(() => {
             total++;
             updateTotal();
+            clickSound.play(); // クリック効果音を再生
             if (total >= 20) {
                 gameEnded = true;
                 showLargeText("Lose", 'message');
                 showText(gameComments.lose, 'shinosawa-message');
                 document.getElementById('retry').style.display = 'block';
                 document.getElementById('tweet').style.display = 'block';
+                bgm.pause(); // BGMを停止
+                loseSound.play(); // 敗北効果音
                 return;
             }
-        }, i * 250);
+        }, i * 750);
     }
     setTimeout(() => {
         document.getElementById("total").classList.remove('green');
@@ -78,11 +94,12 @@ function playerTurn(number) {
             updateTurnMessage(false);
             setTimeout(() => {
                 aiTurn();
-            }, 500);
+            }, 1000);
         }
-    }, (number + 1) * 250);
+    }, (number + 1) * 750);
 }
 
+// AIのターン
 function aiTurn() {
     if (gameEnded) return;
 
@@ -95,15 +112,18 @@ function aiTurn() {
             setTimeout(() => {
                 total++;
                 updateTotal();
+                clickSound.play(); // クリック効果音を再生
                 if (total >= 20) {
                     gameEnded = true;
                     showLargeText("Win", 'message');
                     showText(gameComments.win, 'shinosawa-message');
                     document.getElementById('retry').style.display = 'block';
                     document.getElementById('tweet').style.display = 'block';
+                    bgm.pause(); // BGMを停止
+                    winSound.play(); // 勝利効果音
                     return;
                 }
-            }, i * 250);
+            }, i * 750);
         }
         setTimeout(() => {
             document.getElementById("total").classList.remove('red');
@@ -117,10 +137,11 @@ function aiTurn() {
                     disableInvalidButtons();
                 });
             }
-        }, (aiChoice + 1) * 250);
+        }, (aiChoice + 1) * 750);
     });
 }
 
+// ターンメッセージの更新
 function updateTurnMessage(isPlayerTurn) {
     document.getElementById('message').textContent = isPlayerTurn
         ? 'プロデューサーの番です。1から3の数字を選んでください。'
@@ -129,10 +150,9 @@ function updateTurnMessage(isPlayerTurn) {
     disableInvalidButtons();
 }
 
+// AIの最適な手の取得
 function getOptimalMove(currentTotal) {
-    if (currentTotal >= 19) {
-        return 1; // 19以上では+1しか選ばない
-    }
+    if (currentTotal === 19) return 1; // 19のときは常に1を選ぶ
     let remainder = (currentTotal + 1) % 4;
     if (remainder === 0) {
         return Math.floor(Math.random() * 3) + 1; // ランダムに1から3を選ぶ
@@ -145,15 +165,18 @@ function getOptimalMove(currentTotal) {
     }
 }
 
+// コメントの取得
 function getComment(currentTotal) {
     return gameComments.normal[Math.floor(Math.random() * gameComments.normal.length)];
 }
 
+// 合計の更新
 function updateTotal() {
     if (total > 20) total = 20;  // 合計が20を超えないようにする
     document.getElementById("total").textContent = `現在の合計: ${total}`;
 }
 
+// キャラクター画像の更新
 function updateCharacterImage(total) {
     let imgSrc = characterImages.normal;
     if (total > 15) {
@@ -166,6 +189,7 @@ function updateCharacterImage(total) {
     document.getElementById('character-image').src = imgSrc;
 }
 
+// 無効なボタンの無効化
 function disableInvalidButtons() {
     const btn1 = document.getElementById('btn1');
     const btn2 = document.getElementById('btn2');
@@ -183,54 +207,9 @@ function disableInvalidButtons() {
     }
 }
 
-function resetGame() {
-    total = 0;  // 合計数をリセット
-    gameEnded = false;
-    playerFirst = false;
-    messageInProgress = false;
-
-    document.getElementById('janken-game').style.display = 'block';
-    document.getElementById('counting-game').style.display = 'none';
-    document.getElementById('janken-message').textContent = 'じゃんけんで勝った方が先攻ね。';
-    document.querySelector('.buttons').innerHTML = `
-        <button id="rock" class="btn" onclick="janken('グー')">👊</button>
-        <button id="scissors" class="btn" onclick="janken('チョキ')">✌️</button>
-        <button id="paper" class="btn" onclick="janken('パー')">✋</button>
-    `;
-    document.getElementById('shinosawa-message-janken').textContent = '';
-    document.getElementById('total').textContent = '現在の合計: 0';
-    document.getElementById('message').classList.remove('large-text');
-    document.getElementById('message').textContent = '';
-    document.getElementById('shinosawa-message').textContent = '';
-    document.getElementById('retry').style.display = 'none';
-    document.getElementById('tweet').style.display = 'none';
-    document.getElementById('character-image').src = characterImages.normal;
-    document.getElementById('character-image-janken').src = characterImages.normal;
-    enableJankenButtons();
-}
-
-function showText(text, elementId, callback) {
-    const element = document.getElementById(elementId);
-    let index = 0;
-    element.textContent = ''; // 以前のテキストをクリア
-    const interval = setInterval(() => {
-        element.textContent += text[index];
-        index++;
-        if (index === text.length) {
-            clearInterval(interval);
-            if (callback) callback();
-        }
-    }, 50); // 1文字ずつ表示する間隔を調整
-}
-
-function showLargeText(text, elementId) {
-    const element = document.getElementById(elementId);
-    element.textContent = text;
-    element.classList.add('large-text');
-}
-
+// ボタンの有効/無効の切り替え
 function disableButtons(disable) {
-    const buttons = document.querySelectorAll('.btn');
+    const buttons = document.querySelectorAll('.btn:not(#retry):not(#tweet)');
     buttons.forEach(button => {
         if (disable) {
             button.disabled = true;
@@ -245,25 +224,45 @@ function disableButtons(disable) {
     });
 }
 
+// じゃんけんボタンの無効化
 function disableJankenButtons() {
     document.getElementById('rock').disabled = true;
     document.getElementById('scissors').disabled = true;
     document.getElementById('paper').disabled = true;
 }
 
+// じゃんけんボタンの有効化
 function enableJankenButtons() {
     document.getElementById('rock').disabled = false;
     document.getElementById('scissors').disabled = false;
     document.getElementById('paper').disabled = false;
 }
 
+// テキストの表示
+function showText(text, elementId, callback) {
+    const element = document.getElementById(elementId);
+    let index = 0;
+    element.textContent = ''; // 以前のテキストをクリア
+    const interval = setInterval(() => {
+        element.textContent += text[index];
+        index++;
+        if (index === text.length) {
+            clearInterval(interval);
+            if (callback) callback();
+        }
+    }, 50); // 1文字ずつ表示する間隔を調整
+}
+
+// 大きなテキストの表示
+function showLargeText(text, elementId) {
+    const element = document.getElementById(elementId);
+    element.textContent = text;
+    element.classList.add('large-text');
+}
+
+// 結果をツイート
 function tweetResult() {
-    const tweetText = `しのさわに勝った！合計 ${total} で勝利しました！ #20を数えたら負けゲーム`;
+    const tweetText = `篠澤と戦おう！https://ryuseimiyazawa.github.io/shinosawa_count_game/`;
     const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`;
     window.open(tweetUrl, '_blank');
 }
-
-// リトライボタンを押すと画面をリロード
-document.getElementById('retry').addEventListener('click', function() {
-    location.reload();
-});
