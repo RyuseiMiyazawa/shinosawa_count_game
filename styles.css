@@ -15,11 +15,14 @@ body {
     padding: 20px;
     text-align: center;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 350px; /* 固定幅 */
-    height: 700px; /* 長さを長く */
+    width: 90vw; /* 画面幅の90% */
+    max-width: 350px; /* 最大幅を設定 */
+    height: 90vh; /* 画面高の90% */
+    max-height: 700px; /* 最大高さを設定 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    box-sizing: border-box;
 }
 
 h1 {
